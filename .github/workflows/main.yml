@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [main]
 
-jobs:
+setup:
   client:
     runs-on: ubuntu-latest
     defaults:
@@ -35,15 +35,3 @@ jobs:
       # - run: yarn types:openapi
       - run: yarn build
       - run: yarn test
-
-  server:
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./server
-    strategy:
-      matrix:
-        node-version: [16.x]
-
-    steps:
-      - uses: actions/checkout@v2
