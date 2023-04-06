@@ -26,6 +26,7 @@ jobs:
       - run: yarn lint
       - run: yarn build
       - run: yarn test
+      - uses: actions/checkout@v2
       - name: Setup and generate front
         uses: actions/setup-node@v1
         with:
