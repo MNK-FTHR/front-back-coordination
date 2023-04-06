@@ -18,12 +18,20 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Setup and start back
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
+      - run: yarn format
+      - run: yarn lint
+      - run: yarn build
+      - run: yarn test
+      - name: Setup and generate front
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       - run: yarn install --frozen-lockfile
-      - run: yarn types:openapi
+      # - run: yarn types:openapi
       - run: yarn build
       - run: yarn test
 
@@ -38,12 +46,3 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-      - run: yarn install --frozen-lockfile
-      - run: yarn format
-      - run: yarn lint
-      - run: yarn build
-      - run: yarn test
