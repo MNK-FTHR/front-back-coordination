@@ -17,24 +17,25 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - name: Setup and start back
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
+      - run: yarn install --frozen-lockfile
+        working-directory: ./server
+      - run: yarn format
+        working-directory: ./server
+      - run: yarn lint
+        working-directory: ./server
+      - run: yarn build
+        working-directory: ./server
+      - run: yarn test
+        working-directory: ./server
+      - run: yarn start
         working-directory: ./server
       - run: yarn install --frozen-lockfile
-      - run: yarn format
-      - run: yarn lint
+        working-directory: ./client
       - run: yarn build
+        working-directory: ./client
       - run: yarn test
-      - run: yarn start
-
-      # - uses: actions/checkout@v2
-      # - name: Setup and generate front
-      #   working-directory: ./client
-      #   with:
-      #     node-version: ${{ matrix.node-version }}
-      # - run: yarn install --frozen-lockfile
-      # - run: yarn types:openapi
-      # - run: yarn build
-      # - run: yarn test
+        working-directory: ./client
