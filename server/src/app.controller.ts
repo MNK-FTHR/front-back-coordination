@@ -14,7 +14,7 @@ export class AppController {
 
   @Get()
   @ApiOperation({ summary: 'Say Hello World' })
-  @ApiResponse({ status: 200, description: 'Found todo', type: String })
+  @ApiResponse({ status: 200, description: 'Hello world', type: String })
   getHello(): string {
     return this.appService.getHello();
   }
